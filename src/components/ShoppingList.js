@@ -14,11 +14,13 @@ function ShoppingList() {
                 {catList.map((cat, index) => <li key={cat}>{cat}</li>)}
             </ul>
             <hr />
-            <ul>
+            <ul className='lmj-plant-list'>
                 {plantList.map((plant, index) => (
-                    <li key={plant.id}>
-                        {plant.name}{plant.isBestSale && <span>🔥</span>}
+                    <li key={plant.id} className='lmj-plant-item'>
+                        {plant.name}
+                        {plant.isSpecialOffer && <div className='lmj-sales'>Soldes</div>}
                     </li>
+                    
                 ))}
             </ul>
         </div>
