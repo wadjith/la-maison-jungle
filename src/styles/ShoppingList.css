@@ -5,7 +5,7 @@
 	flex-wrap: wrap;
 	max-width: 800px;
 }
-
+/*
 .lmj-plant-item {
 	border: solid 2px black;
 	border-radius: 10px;
@@ -17,7 +17,7 @@
 	justify-content: center;
 	flex-direction: column;
 	position: relative;
-}
+} */
 
 .lmj-sales {
 	position: absolute;
