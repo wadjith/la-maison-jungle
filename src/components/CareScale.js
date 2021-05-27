@@ -11,14 +11,36 @@ function CareScale({ scaleValue, careType }) {
 		)
         
     return (
-        <div>
+        <div onClick={() => handleClick(scaleValue, careType)}>
             {range.map((rangeElem) =>
                 scaleValue >= rangeElem ? (
-                    <span key={rangeElem.toString()}>{scaleType}</span>
+                    <span key={rangeElem.toString()}>
+                        {scaleType}
+                    </span>
                 ) : null
             )}
         </div>
     )
 }
 
+function handleClick(scaleVal, careT) {
+    let scale, care;
+    care = (careT === 'light') ? 'de lumière' : 'd\'arrosage';
+    switch (scaleVal) {
+        case 1:
+            scale = 'peu'
+            break;
+        case 2:
+            scale = 'modérement'
+            break;
+        case 3:
+            scale = 'beaucoup'
+            break;    
+    
+        default:
+            break;
+    } 
+    alert(`Cette plante requiert ${scale} ${care} 🌱✨`)
+    //console.log(scale + ' et ' + care)
+}
 export default CareScale
