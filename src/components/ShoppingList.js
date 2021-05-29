@@ -2,25 +2,30 @@ import '../styles/ShoppingList.css';
 import {plantList} from '../datas/plantList';
 import PlantItem from './PlantItem';
 
-function ShoppingList() {
+function ShoppingList({ cart, updateCart }) {
 
-    let catList = [];
     // charge une catégorie dans le tableau catList seulement s'il n'existe pas déjà
-    plantList.map(plant => plant.category).forEach((cat) => { if(catList.indexOf(cat) === -1) catList.push(cat)});
+    const categories = plantList.reduce(
+        (acc, elem) =>
+            acc.includes(elem.category) ? acc : acc.concat(elem.category),
+            []
+    )
 
     return (
-        <div>
-            <h3>Liste des catégories</h3>
+        <div className='lmj-shopping-list'>
             <ul>
-                {catList.map((cat, index) => <li key={cat}>{cat}</li>)}
+                {categories.map((cat) => (
+                <li key={cat}>{cat}</li>
+                ))}
             </ul>
-            <hr />
             <ul className='lmj-plant-list'>
-            {plantList.map((plant, index) => ( 
-                <PlantItem id={plant.id} name={plant.name} cover={plant.cover} light={plant.light} water={plant.water} />
-            ))}
+                {plantList.map(({ id, cover, name, water, light }) => (
+                    <div key={id}>
+                        <PlantItem cover={cover} name={name} water={water} light={light} />
+                        <button onClick={() => updateCart(cart + 1)}>Ajouter</button>
+                    </div>
+                ))}
             </ul>
-            
         </div>
     );
 }
