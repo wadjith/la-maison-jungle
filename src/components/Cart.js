@@ -2,8 +2,34 @@ import '../styles/Cart.css';
 import { useState } from 'react';
 
 function Cart({ cart, updateCart }) {
-    const monsteraPrice = 8
     const [isOpen, setIsOpen] = useState(true)
+    const total = cart.reduce(
+        (acc, elem) => acc + elem.price * elem.amount, 
+        0
+    )
+    function handleClick(e) {
+        //Copie le cart actuel pour la modifier
+        const cartUpdated = [...cart]
+        //index de la plante pour laquelle on a cliqué sur le bouton
+        let index = cartUpdated.findIndex((plant) => plant.name === e.target.value) 
+        const {name, price, amount} = cartUpdated[index]
+        if (amount === 1 ) {
+            // Je déplace les éléments du tableau
+            while(index < cart.length - 1) {
+                cartUpdated[index] = cartUpdated[++index]
+
+                console.log(index)
+            }
+            // j'enlève le dernier élément
+            cartUpdated.pop()
+            
+        } else {
+            // je diminue la quantité et je remplace dans le tableau
+            let amountMinus = amount - 1
+            cartUpdated[index] = {name, price, amount: amountMinus}
+        }
+        updateCart(cartUpdated)
+    }
 
     return isOpen ? (
         <div className='lmj-cart'>
@@ -14,8 +40,15 @@ function Cart({ cart, updateCart }) {
                 Fermer
             </button>
             <h2>Panier</h2>
-            <h3>Total : {monsteraPrice * cart}€</h3>
-            <button onClick={() => updateCart(0)}>Vider le panier</button>
+            {cart.map(({ name, price, amount }, index) => (
+				<div key={`${name}-${index}`}>
+					{name} {price}€ x {amount}
+                    <button value={name} key={`${name}-${index}`} onClick={handleClick}>Enlever 1</button>
+				</div>
+			))}
+
+			<h3>Total : {total}€</h3>
+			<button onClick={() => updateCart([])}>Vider le panier</button>
         </div>
     ) : (
         <div className='lmj-cart-closed'>
