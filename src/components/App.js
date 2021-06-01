@@ -11,11 +11,11 @@ function App() {
   	const [cart, updateCart] = useState(savedCart ? JSON.parse(savedCart) : [])
 
  // L'effet est exécuté au changement du cart
- useEffect(() => {
-	//Enregistrer le cart dans le localStorage
-	console.log("Save the cart : " + cart)
-	localStorage.setItem('cart', JSON.stringify(cart))
-}, [cart])
+	useEffect(() => {
+		//Enregistrer le cart dans le localStorage
+		console.log("Save the cart : " + cart)
+		localStorage.setItem('cart', JSON.stringify(cart))
+	}, [cart])
 	return (
 		<div>
 			<Banner>
