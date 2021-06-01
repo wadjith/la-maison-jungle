@@ -7,6 +7,7 @@ function Cart({ cart, updateCart }) {
         (acc, elem) => acc + elem.price * elem.amount, 
         0
     )
+    
     function handleClick(e) {
         //Copie le cart actuel pour la modifier
         const cartUpdated = [...cart]
@@ -30,10 +31,11 @@ function Cart({ cart, updateCart }) {
         }
         updateCart(cartUpdated)
     }
+
     useEffect(() => {
-        document.title = `LMJ: ${total}€ d'achats`
-    }, [total])
-    
+		document.title = `LMJ: ${total}€ d'achats`
+	}, [total])
+
     return isOpen ? (
         <div className='lmj-cart'>
             <button
